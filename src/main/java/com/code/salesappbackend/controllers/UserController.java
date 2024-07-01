@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -44,7 +43,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseSuccess<?> updateUser(@PathVariable Long id, @RequestBody @Valid UserDto userDto) {
+    public ResponseSuccess<?> updateUser(@PathVariable Long id, @RequestBody @Valid UserDto userDto) throws Exception {
         User user = userMapper.userDto2User(userDto);
         user.setId(id);
         return new ResponseSuccess<>(HttpStatus.OK.value(),
@@ -53,7 +52,7 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseSuccess<?> patchUser(@PathVariable Long id, @RequestBody @Valid Map<String, ?> data) {
+    public ResponseSuccess<?> patchUser(@PathVariable Long id, @RequestBody @Valid Map<String, ?> data) throws Exception {
         return new ResponseSuccess<>(HttpStatus.OK.value(),
                 "update user successfully",
                 userService.updatePatch(id, data));

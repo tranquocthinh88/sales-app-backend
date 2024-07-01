@@ -29,23 +29,23 @@ public class AddressController {
     }
 
     @PutMapping("/{id}")
-    public ResponseSuccess<?> updateAddress(@PathVariable Long id ,@RequestBody @Valid AddressDto addressDto) {
+    public ResponseSuccess<?> updateAddress(@PathVariable Long id ,@RequestBody @Valid AddressDto addressDto) throws Exception {
         Address address = addressMapper.addressDto2Address(addressDto);
         address.setId(id);
         return new ResponseSuccess<>(HttpStatus.OK.value(),
                 "address updated successfully",
-                addressService.save(address));
+                addressService.update(id, address));
     }
 
     @DeleteMapping("/{id}")
     public ResponseSuccess<?> deleteAddress(@PathVariable Long id) {
-        addressService.delete(id);
+        addressService.deleteById(id);
         return new ResponseSuccess<>(HttpStatus.NO_CONTENT.value(),
                 "delete address with id" + id);
     }
 
     @PatchMapping("/{id}")
-    public ResponseSuccess<?> patchAddress(@PathVariable Long id, @RequestBody @Valid Map<String, ?> data) {
+    public ResponseSuccess<?> patchAddress(@PathVariable Long id, @RequestBody @Valid Map<String, ?> data) throws Exception {
         return new ResponseSuccess<>(
                 HttpStatus.OK.value(),
                 "address updated successfully",
