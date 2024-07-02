@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @IdClass(UserVoucherId.class)
-public class VoucherUsage {
+public class VoucherUsages {
     @Id
     @ManyToOne
     @JoinColumn(name = "user_id")

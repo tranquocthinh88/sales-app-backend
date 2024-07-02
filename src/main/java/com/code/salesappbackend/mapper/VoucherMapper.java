@@ -14,6 +14,7 @@ public class VoucherMapper {
                 .expiredDate(voucherDto.getExpiredDate())
                 .voucherType(voucherDto.getVoucherType())
                 .quantity(voucherDto.getQuantity())
+                .scope(voucherDto.getScope())
                 .build();
     }
 }
