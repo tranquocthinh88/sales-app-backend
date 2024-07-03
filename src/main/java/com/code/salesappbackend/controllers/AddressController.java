@@ -1,7 +1,6 @@
 package com.code.salesappbackend.controllers;
 
 import com.code.salesappbackend.dtos.requests.AddressDto;
-import com.code.salesappbackend.dtos.responses.ResponseError;
 import com.code.salesappbackend.dtos.responses.ResponseSuccess;
 import com.code.salesappbackend.mapper.AddressMapper;
 import com.code.salesappbackend.models.Address;
