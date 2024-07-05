@@ -1,6 +1,8 @@
 package com.code.salesappbackend.services.impls;
 
+import com.code.salesappbackend.dtos.responses.PageResponse;
 import com.code.salesappbackend.exceptions.DataNotFoundException;
+import com.code.salesappbackend.repositories.customizations.BaseCustomizationRepository;
 import com.code.salesappbackend.services.interfaces.BaseService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,12 +17,18 @@ import java.util.Optional;
 import java.util.Set;
 
 
-public abstract class BaseServiceImpl<T, ID extends Serializable> implements BaseService<T, ID> {
+public abstract class BaseServiceImpl<T, ID extends Serializable>extends BaseCustomizationRepository<T> implements BaseService<T, ID> {
 
     private final BaseService<T, ID> repository;
 
-    public BaseServiceImpl(BaseService<T, ID> repository) {
+    public BaseServiceImpl(BaseService<T, ID> repository, Class<T> entityClass) {
+        super(entityClass);
         this.repository = repository;
+    }
+
+    @Override
+    public Page<T> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     @Override
@@ -78,6 +86,12 @@ public abstract class BaseServiceImpl<T, ID extends Serializable> implements Bas
         }
         return repository.save(t);
     }
+
+    @Override
+    public PageResponse getPageData(int pageNo, int pageSize, String[] search, String[] sort) {
+        return super.getPageData(pageNo, pageSize, search, sort);
+    }
+
     private String toUpperCaseFirstChar(String str) {
         char[] chars = str.toCharArray();
         chars[0] = Character.toUpperCase(chars[0]);

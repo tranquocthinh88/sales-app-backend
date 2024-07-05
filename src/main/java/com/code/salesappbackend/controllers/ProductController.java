@@ -34,5 +34,29 @@ public class ProductController {
                 "get product successfully",
                 productService.findProductById(id));
     }
+    @GetMapping("/page-product")
+    public ResponseSuccess<?> pageProduct(@RequestParam(defaultValue = "1") int pageNo,
+                                          @RequestParam(defaultValue = "10") int pageSize,
+                                          @RequestParam(required = false) String[] sort,
+                                          @RequestParam(required = false) String[] search)  {
+        return new ResponseSuccess<>(
+                HttpStatus.OK.value(),
+                "get product page",
+                productService.getPageData(pageNo, pageSize, search, sort)
+        );
 
+    }
+
+    @GetMapping("/test-criteria")
+    public ResponseSuccess<?> testCriteria(@RequestParam(defaultValue = "1") int pageNo,
+                                           @RequestParam(defaultValue = "10") int pageSize,
+                                           @RequestParam(required = false) String sort,
+                                           @RequestParam(required = false) String... search) {
+        return new ResponseSuccess<>(
+                HttpStatus.OK.value(),
+                "get product page",
+                null
+        );
+
+    }
 }

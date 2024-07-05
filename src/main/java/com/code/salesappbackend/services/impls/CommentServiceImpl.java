@@ -10,6 +10,6 @@ import org.springframework.stereotype.Service;
 public class CommentServiceImpl extends BaseServiceImpl<Comment, Long> implements CommentService {
 
     public CommentServiceImpl(BaseService<Comment, Long> repository) {
-        super(repository);
+        super(repository, Comment.class);
     }
 }

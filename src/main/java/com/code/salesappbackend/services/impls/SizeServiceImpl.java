@@ -6,7 +6,6 @@ import com.code.salesappbackend.repositories.SizeRepository;
 import com.code.salesappbackend.services.interfaces.BaseService;
 import com.code.salesappbackend.services.interfaces.SizeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,7 +13,7 @@ public class SizeServiceImpl extends BaseServiceImpl<Size, Long> implements Size
     private SizeRepository sizeRepository;
 
     public SizeServiceImpl(BaseService<Size, Long> repository) {
-        super(repository);
+        super(repository, Size.class);
     }
 
     @Autowired

@@ -8,7 +8,6 @@ import com.code.salesappbackend.mapper.ProductMapper;
 import com.code.salesappbackend.models.Product;
 import com.code.salesappbackend.models.ProductDetail;
 import com.code.salesappbackend.models.ProductImage;
-import com.code.salesappbackend.repositories.BaseRepository;
 import com.code.salesappbackend.repositories.ProductDetailRepository;
 import com.code.salesappbackend.repositories.ProductImageRepository;
 import com.code.salesappbackend.repositories.ProductRepository;
@@ -35,7 +34,7 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
     private ProductDetailRepository productDetailRepository;
 
     public ProductServiceImpl(BaseService<Product, Long> repository) {
-        super(repository);
+        super(repository, Product.class);
     }
 
     @Autowired

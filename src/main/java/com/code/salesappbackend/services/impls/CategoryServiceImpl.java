@@ -13,7 +13,7 @@ public class CategoryServiceImpl extends BaseServiceImpl<Category, Long> impleme
     private CategoryRepository categoryRepository;
 
     public CategoryServiceImpl(BaseService<Category, Long> repository) {
-        super(repository);
+        super(repository, Category.class);
     }
 
     @Autowired

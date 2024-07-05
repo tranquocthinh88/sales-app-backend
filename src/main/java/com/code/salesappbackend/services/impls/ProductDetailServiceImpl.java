@@ -10,7 +10,6 @@ import com.code.salesappbackend.repositories.ProductRepository;
 import com.code.salesappbackend.services.interfaces.BaseService;
 import com.code.salesappbackend.services.interfaces.ProductDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +19,7 @@ public class ProductDetailServiceImpl extends BaseServiceImpl<ProductDetail, Lon
     private ProductRepository productRepository;
 
     public ProductDetailServiceImpl(BaseService<ProductDetail, Long> repository) {
-        super(repository);
+        super(repository, ProductDetail.class);
     }
 
     @Autowired
