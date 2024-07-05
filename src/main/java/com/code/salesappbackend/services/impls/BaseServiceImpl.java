@@ -2,8 +2,9 @@ package com.code.salesappbackend.services.impls;
 
 import com.code.salesappbackend.exceptions.DataNotFoundException;
 import com.code.salesappbackend.services.interfaces.BaseService;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
@@ -16,9 +17,9 @@ import java.util.Set;
 
 public abstract class BaseServiceImpl<T, ID extends Serializable> implements BaseService<T, ID> {
 
-    private final JpaRepository<T, ID> repository;
+    private final BaseService<T, ID> repository;
 
-    public BaseServiceImpl(JpaRepository<T, ID> repository) {
+    public BaseServiceImpl(BaseService<T, ID> repository) {
         this.repository = repository;
     }
 
@@ -46,6 +47,11 @@ public abstract class BaseServiceImpl<T, ID extends Serializable> implements Bas
     public T update(ID id, T t) throws DataNotFoundException {
         repository.findById(id).orElseThrow(() -> new DataNotFoundException("Not found data"));
         return repository.save(t);
+    }
+
+    @Override
+    public Page<T> findAll(Pageable pageable, Specification<T> specification) {
+        return repository.findAll(pageable, specification);
     }
 
     @Override

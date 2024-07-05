@@ -7,6 +7,7 @@ import com.code.salesappbackend.models.ProductDetail;
 import com.code.salesappbackend.models.Size;
 import com.code.salesappbackend.repositories.ProductDetailRepository;
 import com.code.salesappbackend.repositories.ProductRepository;
+import com.code.salesappbackend.services.interfaces.BaseService;
 import com.code.salesappbackend.services.interfaces.ProductDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,7 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class ProductDetailServiceImpl extends BaseServiceImpl<ProductDetail, Long> implements ProductDetailService {
     private ProductDetailRepository productDetailRepository;
     private ProductRepository productRepository;
-    public ProductDetailServiceImpl(JpaRepository<ProductDetail, Long> repository) {
+
+    public ProductDetailServiceImpl(BaseService<ProductDetail, Long> repository) {
         super(repository);
     }
 

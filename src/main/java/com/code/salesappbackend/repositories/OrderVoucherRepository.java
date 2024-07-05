@@ -4,5 +4,5 @@ import com.code.salesappbackend.models.OrderVoucher;
 import com.code.salesappbackend.models.id_classes.OrderVoucherId;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface OrderVoucherRepository extends JpaRepository<OrderVoucher, OrderVoucherId> {
+public interface OrderVoucherRepository extends BaseRepository<OrderVoucher, OrderVoucherId> {
 }

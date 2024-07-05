@@ -32,6 +32,7 @@ public class ProductController {
     public ResponseSuccess<?> getProductById(@PathVariable Long id) throws Exception {
         return new ResponseSuccess<>(HttpStatus.OK.value(),
                 "get product successfully",
-                productService.findById(id));
+                productService.findProductById(id));
     }
+
 }

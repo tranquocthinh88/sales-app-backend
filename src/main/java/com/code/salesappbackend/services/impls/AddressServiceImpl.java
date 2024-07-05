@@ -2,13 +2,13 @@ package com.code.salesappbackend.services.impls;
 
 import com.code.salesappbackend.models.Address;
 import com.code.salesappbackend.services.interfaces.AddressService;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.code.salesappbackend.services.interfaces.BaseService;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AddressServiceImpl extends BaseServiceImpl<Address, Long> implements AddressService {
 
-    public AddressServiceImpl(JpaRepository<Address, Long> repository) {
+    public AddressServiceImpl(BaseService<Address, Long> repository) {
         super(repository);
     }
 }
