@@ -2,6 +2,7 @@ package com.code.salesappbackend.controllers;
 
 import com.code.salesappbackend.dtos.requests.ProductDto;
 import com.code.salesappbackend.dtos.responses.ResponseSuccess;
+import com.code.salesappbackend.repositories.criterias.ProductCriteria;
 import com.code.salesappbackend.services.interfaces.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
+    private final ProductCriteria productCriteria;
 
     @GetMapping
     public ResponseSuccess<?> getAllProducts() {
@@ -34,6 +36,7 @@ public class ProductController {
                 "get product successfully",
                 productService.findProductById(id));
     }
+
     @GetMapping("/page-product")
     public ResponseSuccess<?> pageProduct(@RequestParam(defaultValue = "1") int pageNo,
                                           @RequestParam(defaultValue = "10") int pageSize,
@@ -42,9 +45,8 @@ public class ProductController {
         return new ResponseSuccess<>(
                 HttpStatus.OK.value(),
                 "get product page",
-                productService.getPageData(pageNo, pageSize, search, sort)
+                productCriteria.getPageDataCriteria(pageNo, pageSize, search, sort)
         );
-
     }
 
     @GetMapping("/test-criteria")
@@ -57,6 +59,5 @@ public class ProductController {
                 "get product page",
                 null
         );
-
     }
 }
