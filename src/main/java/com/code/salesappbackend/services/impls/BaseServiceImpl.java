@@ -6,7 +6,7 @@ import com.code.salesappbackend.repositories.customizations.BaseCustomizationRep
 import com.code.salesappbackend.services.interfaces.BaseService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
@@ -19,9 +19,9 @@ import java.util.Set;
 
 public abstract class BaseServiceImpl<T, ID extends Serializable>extends BaseCustomizationRepository<T> implements BaseService<T, ID> {
 
-    private final BaseService<T, ID> repository;
+    private final JpaRepository<T, ID> repository;
 
-    public BaseServiceImpl(BaseService<T, ID> repository, Class<T> entityClass) {
+    public BaseServiceImpl(JpaRepository<T, ID> repository, Class<T> entityClass) {
         super(entityClass);
         this.repository = repository;
     }
@@ -55,11 +55,6 @@ public abstract class BaseServiceImpl<T, ID extends Serializable>extends BaseCus
     public T update(ID id, T t) throws DataNotFoundException {
         repository.findById(id).orElseThrow(() -> new DataNotFoundException("Not found data"));
         return repository.save(t);
-    }
-
-    @Override
-    public Page<T> findAll(Pageable pageable, Specification<T> specification) {
-        return repository.findAll(pageable, specification);
     }
 
     @Override

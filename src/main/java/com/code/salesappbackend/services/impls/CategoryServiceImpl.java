@@ -6,13 +6,14 @@ import com.code.salesappbackend.repositories.CategoryRepository;
 import com.code.salesappbackend.services.interfaces.BaseService;
 import com.code.salesappbackend.services.interfaces.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CategoryServiceImpl extends BaseServiceImpl<Category, Long> implements CategoryService {
     private CategoryRepository categoryRepository;
 
-    public CategoryServiceImpl(BaseService<Category, Long> repository) {
+    public CategoryServiceImpl(JpaRepository<Category, Long> repository) {
         super(repository, Category.class);
     }
 

@@ -6,6 +6,7 @@ import com.code.salesappbackend.repositories.ProviderRepository;
 import com.code.salesappbackend.services.interfaces.BaseService;
 import com.code.salesappbackend.services.interfaces.ProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,7 +14,7 @@ public class PorviderServiceImpl extends BaseServiceImpl<Provider, Long> impleme
 
     private ProviderRepository providerRepository;
 
-    public PorviderServiceImpl(BaseService<Provider, Long> repository) {
+    public PorviderServiceImpl(JpaRepository<Provider, Long> repository) {
         super(repository, Provider.class);
     }
 

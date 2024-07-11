@@ -17,7 +17,6 @@ public interface BaseService<T, ID> {
     void deleteById(ID id);
     T update(ID id,T t) throws DataNotFoundException;
     T updatePatch(ID id, Map<String, ?> data) throws DataNotFoundException;
-    Page<T> findAll(Pageable pageable, Specification<T> specification);
     Page<T> findAll(Pageable pageable);
     PageResponse getPageData(int pageNo, int pageSize, String[] search, String[] sort);
 }

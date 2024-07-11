@@ -17,6 +17,7 @@ import com.code.salesappbackend.services.interfaces.ProductService;
 //import com.code.salesappbackend.utils.S3Upload;
 import com.code.salesappbackend.utils.CloudinaryUpload;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,7 +34,7 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
     private CloudinaryUpload cloudinaryUpload;
     private ProductDetailRepository productDetailRepository;
 
-    public ProductServiceImpl(BaseService<Product, Long> repository) {
+    public ProductServiceImpl(JpaRepository<Product, Long> repository) {
         super(repository, Product.class);
     }
 

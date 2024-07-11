@@ -6,13 +6,14 @@ import com.code.salesappbackend.repositories.ColorRepository;
 import com.code.salesappbackend.services.interfaces.BaseService;
 import com.code.salesappbackend.services.interfaces.ColorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ColorServiceImpl extends BaseServiceImpl<Color, Long> implements ColorService {
     private ColorRepository colorRepository;
 
-    public ColorServiceImpl(BaseService<Color, Long> repository) {
+    public ColorServiceImpl(JpaRepository<Color, Long> repository) {
         super(repository, Color.class);
     }
 
