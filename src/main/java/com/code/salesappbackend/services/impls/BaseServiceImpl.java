@@ -83,7 +83,7 @@ public abstract class BaseServiceImpl<T, ID extends Serializable>extends BaseCus
     }
 
     @Override
-    public PageResponse getPageData(int pageNo, int pageSize, String[] search, String[] sort) {
+    public PageResponse<?> getPageData(int pageNo, int pageSize, String[] search, String[] sort) {
         return super.getPageData(pageNo, pageSize, search, sort);
     }
 

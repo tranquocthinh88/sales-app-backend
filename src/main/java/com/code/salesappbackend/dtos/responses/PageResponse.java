@@ -7,9 +7,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class PageResponse {
+public class PageResponse<T> {
     private int pageNo;
     private long totalPage;
     private int totalElement;
-    private Object data;
+    private T data;
 }

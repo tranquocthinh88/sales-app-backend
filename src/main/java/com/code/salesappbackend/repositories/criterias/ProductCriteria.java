@@ -24,7 +24,7 @@ public class ProductCriteria {
     private EntityManager entityManager;
 
 
-    public PageResponse getPageDataCriteria(int pageNo, int pageSize, String[] search, String[] sort) {
+    public PageResponse<?> getPageDataCriteria(int pageNo, int pageSize, String[] search, String[] sort) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         // builder -> and, or, >=, <=, equal, =, like, between
         CriteriaQuery<Product> criteriaQuery = builder.createQuery(Product.class);
