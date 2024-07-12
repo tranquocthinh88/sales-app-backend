@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 
 @Getter
-public class ResponseSuccess<T> {
+public class ResponseSuccess<T> implements Response {
     private final int status;
     private final String message;
     @JsonInclude(JsonInclude.Include.NON_NULL)

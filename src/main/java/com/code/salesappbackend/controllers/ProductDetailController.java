@@ -1,6 +1,7 @@
 package com.code.salesappbackend.controllers;
 
 import com.code.salesappbackend.dtos.requests.ProductDetailDto;
+import com.code.salesappbackend.dtos.responses.Response;
 import com.code.salesappbackend.dtos.responses.ResponseSuccess;
 import com.code.salesappbackend.exceptions.DataNotFoundException;
 import com.code.salesappbackend.mapper.ProductDetailMapper;
@@ -20,7 +21,7 @@ public class ProductDetailController {
     private final ProductDetailMapper productDetailMapper;
 
     @PostMapping
-    public ResponseSuccess<?> addProductDetail(
+    public Response addProductDetail(
             @RequestBody @Valid ProductDetailDto productDetailDto)
             throws Exception {
         return new ResponseSuccess<>(

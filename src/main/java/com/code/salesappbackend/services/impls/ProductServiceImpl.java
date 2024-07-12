@@ -2,7 +2,7 @@ package com.code.salesappbackend.services.impls;
 
 import com.code.salesappbackend.dtos.requests.ProductDto;
 import com.code.salesappbackend.dtos.responses.PageResponse;
-import com.code.salesappbackend.dtos.responses.ProductResponse;
+import com.code.salesappbackend.dtos.responses.products.ProductResponse;
 import com.code.salesappbackend.exceptions.DataExistsException;
 import com.code.salesappbackend.exceptions.DataNotFoundException;
 import com.code.salesappbackend.mapper.ProductMapper;
@@ -13,11 +13,12 @@ import com.code.salesappbackend.repositories.ProductDetailRepository;
 import com.code.salesappbackend.repositories.ProductImageRepository;
 import com.code.salesappbackend.repositories.ProductRepository;
 import com.code.salesappbackend.repositories.customizations.ProductQuery;
-import com.code.salesappbackend.services.interfaces.BaseService;
+import com.code.salesappbackend.services.interfaces.ProductRedisService;
 import com.code.salesappbackend.services.interfaces.ProductService;
 
 //import com.code.salesappbackend.utils.S3Upload;
 import com.code.salesappbackend.utils.CloudinaryUpload;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,7 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
     private CloudinaryUpload cloudinaryUpload;
     private ProductDetailRepository productDetailRepository;
     private ProductQuery productQuery;
+    private ProductRedisService productRedisService;
 
     public ProductServiceImpl(JpaRepository<Product, Long> repository) {
         super(repository, Product.class);
@@ -73,6 +75,11 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
         this.productQuery = productQuery;
     }
 
+    @Autowired
+    public void setProductRedisService(ProductRedisService productRedisService) {
+        this.productRedisService = productRedisService;
+    }
+
     @Override
     @Transactional(rollbackFor = {DataExistsException.class, DataNotFoundException.class})
     public Product save(ProductDto productDto) throws DataExistsException, DataNotFoundException {
@@ -81,7 +88,7 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
         Product product = productMapper.productDto2Product(productDto);
         product = super.save(product);
         // upload cloudinary
-        if(!productDto.getImages().isEmpty()){
+        if(productDto.getImages() != null && !productDto.getImages().isEmpty()){
             List<MultipartFile> files = productDto.getImages();
             for(MultipartFile file : files){
                 try {
@@ -137,7 +144,13 @@ public class ProductServiceImpl extends BaseServiceImpl<Product, Long> implement
     }
 
     @Override
-    public PageResponse<?> getProductsForUserRole(int pageNo, int pageSize, String[] search, String[] sort) throws NoSuchFieldException {
-        return productQuery.getPageData(pageNo, pageSize, search, sort);
+    public PageResponse<?> getProductsForUserRole(int pageNo, int pageSize, String[] search, String[] sort)
+            throws JsonProcessingException {
+        PageResponse<?> result = productRedisService.getProductsInCache(pageNo, pageSize, search, sort);
+        if(result == null) {
+            result = productQuery.getPageData(pageNo, pageSize, search, sort);
+            productRedisService.saveProductsInCache(result, pageNo, pageSize, search, sort);
+        }
+        return result;
     }
 }

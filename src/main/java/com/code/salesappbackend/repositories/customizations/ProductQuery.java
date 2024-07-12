@@ -1,9 +1,8 @@
 package com.code.salesappbackend.repositories.customizations;
 
 import com.code.salesappbackend.dtos.responses.PageResponse;
-import com.code.salesappbackend.dtos.responses.ProductUserResponse;
+import com.code.salesappbackend.dtos.responses.products.ProductUserResponse;
 import com.code.salesappbackend.models.Product;
-import com.code.salesappbackend.models.ProductPrice;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
@@ -26,8 +25,8 @@ public class ProductQuery extends BaseCustomizationRepository<Product> {
     // select p, max(pp.discountedPrice) as discountPrice from Product p left join ProductPrice pp on p = pp.product and pp.expiredDate > current date group by p.id
     @Override
     public PageResponse<?> getPageData(int pageNo, int pageSize, String[] search, String[] sort) {
-        Class<Product> productClass = Product.class;
-        Class<ProductPrice> productPriceClass = ProductPrice.class;
+//        Class<Product> productClass = Product.class;
+//        Class<ProductPrice> productPriceClass = ProductPrice.class;
         StringBuilder queryBuilder = new StringBuilder(getQuery("new com.code.salesappbackend.dtos.responses.products.ProductUserResponse(p, pp.discount, pp.discountedPrice, pp.expiredDate)"));
         appendQueryBuilder(search, queryBuilder, " %s p.%s %s ?%s");
         System.out.println(queryBuilder);

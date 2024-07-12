@@ -1,6 +1,7 @@
 package com.code.salesappbackend.controllers;
 
 import com.code.salesappbackend.dtos.requests.AddressDto;
+import com.code.salesappbackend.dtos.responses.Response;
 import com.code.salesappbackend.dtos.responses.ResponseSuccess;
 import com.code.salesappbackend.mapper.AddressMapper;
 import com.code.salesappbackend.models.Address;
@@ -20,7 +21,7 @@ public class AddressController {
     private final AddressMapper addressMapper;
 
     @PostMapping
-    public ResponseSuccess<?> addAddress(@RequestBody @Valid AddressDto addressDto) {
+    public Response addAddress(@RequestBody @Valid AddressDto addressDto) {
         Address address = addressMapper.addressDto2Address(addressDto);
         return new ResponseSuccess<>(HttpStatus.OK.value(),
                 "address added successfully",
@@ -28,7 +29,7 @@ public class AddressController {
     }
 
     @PutMapping("/{id}")
-    public ResponseSuccess<?> updateAddress(@PathVariable Long id ,@RequestBody @Valid AddressDto addressDto) throws Exception {
+    public Response updateAddress(@PathVariable Long id ,@RequestBody @Valid AddressDto addressDto) throws Exception {
         Address address = addressMapper.addressDto2Address(addressDto);
         address.setId(id);
         return new ResponseSuccess<>(HttpStatus.OK.value(),
@@ -37,14 +38,14 @@ public class AddressController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseSuccess<?> deleteAddress(@PathVariable Long id) {
+    public Response deleteAddress(@PathVariable Long id) {
         addressService.deleteById(id);
         return new ResponseSuccess<>(HttpStatus.NO_CONTENT.value(),
                 "delete address with id" + id);
     }
 
     @PatchMapping("/{id}")
-    public ResponseSuccess<?> patchAddress(@PathVariable Long id, @RequestBody @Valid Map<String, ?> data) throws Exception {
+    public Response patchAddress(@PathVariable Long id, @RequestBody @Valid Map<String, ?> data) throws Exception {
         return new ResponseSuccess<>(
                 HttpStatus.OK.value(),
                 "address updated successfully",

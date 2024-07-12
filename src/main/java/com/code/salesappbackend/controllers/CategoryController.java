@@ -1,6 +1,7 @@
 package com.code.salesappbackend.controllers;
 
 import com.code.salesappbackend.dtos.requests.CategoryDto;
+import com.code.salesappbackend.dtos.responses.Response;
 import com.code.salesappbackend.dtos.responses.ResponseSuccess;
 import com.code.salesappbackend.mapper.CategoryMapper;
 import com.code.salesappbackend.models.Category;
@@ -21,7 +22,7 @@ public class CategoryController {
     private final CategoryMapper categoryMapper;
 
     @GetMapping
-    public ResponseSuccess<?> getCategories() {
+    public Response getCategories() {
         return new ResponseSuccess<>(HttpStatus.OK.value(),
                 "get category successfully",
                 categoryService.findAll());

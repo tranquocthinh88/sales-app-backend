@@ -1,5 +1,6 @@
 package com.code.salesappbackend.models;
 
+import com.code.salesappbackend.events.ProductEvent;
 import com.code.salesappbackend.models.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
@@ -11,6 +12,7 @@ import lombok.*;
 @Entity
 @Table(name = "products")
 @Builder
+@EntityListeners(ProductEvent.class)
 public class Product extends BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
